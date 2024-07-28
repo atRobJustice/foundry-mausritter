@@ -1,5 +1,12 @@
-2024/07/28-12:00:02.684 9900 Log #3: 15 ops saved to Table #4 OK
-2024/07/28-12:00:02.685 9900 Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\spells/000003.log: OK
-2024/07/28-12:00:02.685 9900 Table #4: 15 entries OK
-2024/07/28-12:00:02.686 9900 Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\spells/MANIFEST-000002: OK
-2024/07/28-12:00:02.689 9900 **** Repaired leveldb C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\spells; recovered 1 files; 4461 bytes. Some data may have been lost. ****
+2024/07/28-12:00:02.695 9900 Delete type=3 #1
+2024/07/28-13:54:39.285 1273c Level-0 table #8: started
+2024/07/28-13:54:39.287 1273c Level-0 table #8: 5990 bytes OK
+2024/07/28-13:54:39.289 1273c Delete type=0 #6
+2024/07/28-13:54:39.301 1273c Manual compaction at level-0 from '!items!0bpvALvoKL2UbQU1' @ 72057594037927935 : 1 .. '!items!zKXEyy8SuAUOHqk7' @ 0 : 0; will stop at '!items!zKXEyy8SuAUOHqk7' @ 15 : 1
+2024/07/28-13:54:39.301 1273c Compacting 2@0 + 0@1 files
+2024/07/28-13:54:39.304 1273c Generated table #9@0: 15 keys, 5990 bytes
+2024/07/28-13:54:39.304 1273c Compacted 2@0 + 0@1 files => 5990 bytes
+2024/07/28-13:54:39.305 1273c compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/07/28-13:54:39.305 1273c Delete type=2 #4
+2024/07/28-13:54:39.305 1273c Delete type=2 #8
+2024/07/28-13:54:39.318 1273c Manual compaction at level-0 from '!items!zKXEyy8SuAUOHqk7' @ 15 : 1 .. '!items!zKXEyy8SuAUOHqk7' @ 0 : 0; will stop at (end)
