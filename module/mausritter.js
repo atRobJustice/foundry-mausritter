@@ -163,7 +163,7 @@ async function createMausritterMacro(dropData, slot) {
     return null;
   }
   
-  foundry.utils.mergeObject(macroData, {
+  mergeObject(macroData, {
     name: itemData.name,
     img: itemData.img,
     command: `game.mausritter.rollItemMacro("${itemData.name}")`,

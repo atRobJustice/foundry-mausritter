@@ -96,7 +96,7 @@ export class MausritterActor extends Actor {
   }
 
   rollItem(itemId, options = { event: null }) {
-    let item = foundry.utils.duplicate(this.getEmbeddedDocument("Item", itemId));
+    let item = duplicate(this.getEmbeddedDocument("Item", itemId));
 
     if(item.type == "weapon"){
             //Select the stat of the roll.
