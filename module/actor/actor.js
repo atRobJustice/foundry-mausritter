@@ -96,7 +96,7 @@ export class MausritterActor extends Actor {
   }
 
   rollItem(itemId, options = { event: null }) {
-    let item = duplicate(this.getEmbeddedDocument("Item", itemId));
+    let item = foundry.utils.duplicate(this.getEmbeddedDocument("Item", itemId));
 
     if(item.type == "weapon"){
             //Select the stat of the roll.
@@ -154,7 +154,7 @@ export class MausritterActor extends Actor {
     }
   }
 
-  rollWeapon(item = "", state = ""){
+  async rollWeapon(item = "", state = ""){
     let die = (item.system.weapon.selected == 0 ? item.system.weapon.dmg1 : item.system.weapon.dmg2)
     
     if(state == "impaired")
@@ -167,7 +167,7 @@ export class MausritterActor extends Actor {
   // this.rollWeapon(item, item.system.weapon.dmg2);
 
     let damageRoll = new Roll(die);
-    damageRoll.evaluate({async: false});
+    await damageRoll.evaluate();
     //damageRoll.roll();
 
     const diceData = this.formatDice(damageRoll);
@@ -226,11 +226,11 @@ export class MausritterActor extends Actor {
 
   }
 
-  rollSpell(item = "", power = ""){
+  async rollSpell(item = "", power = ""){
     let die = power+"d6";
 
     let damageRoll = new Roll(die);
-    damageRoll.evaluate({async: false});
+    await damageRoll.evaluate();
 
     const diceData = this.formatDice(damageRoll);
 
@@ -322,7 +322,7 @@ export class MausritterActor extends Actor {
 
   }
 
-  rollAttribute(attribute, advantage, item = "", rollOver = false) {
+  async rollAttribute(attribute, advantage, item = "", rollOver = false) {
     let attributeName = attribute.label?.charAt(0).toUpperCase() + attribute.label?.toLowerCase().slice(1);
     if (!attribute.label && isNaN(attributeName))
       attributeName = attribute.charAt(0)?.toUpperCase() + attribute.toLowerCase().slice(1);
@@ -332,18 +332,18 @@ export class MausritterActor extends Actor {
 
 
     let r = new Roll(diceformular, {});
-    r.evaluate({async: false});
+    await r.evaluate();
 
     let rSplit = ("" + r._total).split("");
 
     //Advantage roll
     let a = new Roll(diceformular, {});
-    a.evaluate({async: false});
+    await a.evaluate();
 
     let damageRoll = 0;
     if (item.type == "weapon") {
       damageRoll = new Roll(item.system.damage);
-      damageRoll.evaluate({async: false});
+      await damageRoll.evaluate();
 
     }
 
@@ -362,7 +362,10 @@ export class MausritterActor extends Actor {
         resultText = (r._total >= targetValue ? game.i18n.localize('Maus.RollSuccess') : game.i18n.localize('Maus.RollFailure'));
     } else {
         resultText = (r._total <= targetValue ? game.i18n.localize('Maus.RollSuccess') : game.i18n.localize('Maus.RollFailure'));
-    }
+    } 
+
+    console.log(this);
+    console.log(r._total);
 
     var templateData = {
       actor: this,
@@ -380,7 +383,7 @@ export class MausritterActor extends Actor {
           value: resultText
         },
         isCreature: {
-          value: this.data.type == "hireling" ? true : false
+          value: this.type == "hireling" ? true : false
         }
       },
       target: attribute.value,
@@ -441,7 +444,7 @@ export class MausritterActor extends Actor {
       };
 
       for (let i = 0; i < diceRoll.terms.length; i++) {
-        if (diceRoll.terms[i] instanceof Die) {
+        if (diceRoll.terms[i] instanceof foundry.dice.terms.Die) {
           let pool = diceRoll.terms[i].results;
           let faces = diceRoll.terms[i].faces;
 

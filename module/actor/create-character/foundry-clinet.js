@@ -7,15 +7,16 @@ export async function getItemFromFoundry(item_id) {
 
 export async function addItem(itemId, instant, slot) {
     const item = await getItemFromFoundry(itemId);
-    const itemData = duplicate(item);
+    const itemData = foundry.utils.duplicate(item);
     if (slot) {
         itemData.system.sheet = slot
     }
     await instant.sheet._onDropItemCreate(itemData)
 }
 
-export function attrRoll() {
-    return new Roll('3d6kh2').roll({async: false}).total;
+export async function attrRoll() {
+    var roll = await new Roll('3d6kh2').roll();
+    return await roll.total;
 }
 
 export async function drawFromTable(tableName) {

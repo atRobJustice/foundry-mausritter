@@ -6,7 +6,7 @@ export class MausritterActorSheet extends ActorSheet {
 
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["mausritter", "sheet", "actor", "character"],
             template: "systems/mausritter/templates/actor/actor-sheet.html",
             width: 742,
@@ -32,6 +32,8 @@ export class MausritterActorSheet extends ActorSheet {
         if (data.data.system.settings == null) {
             data.data.system.settings = {};
         }
+
+        console.log(this.actor);
 
         return data.data;
     }
@@ -404,7 +406,7 @@ export class MausritterActorSheet extends ActorSheet {
 
     async _updateObject(event, formData) {
         const actor = this.object;
-        const updateData = expandObject(formData);
+        const updateData = foundry.utils.expandObject(formData);
 
         await actor.update(updateData, {
             diff: false

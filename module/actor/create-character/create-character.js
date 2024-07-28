@@ -37,7 +37,7 @@ export async function createCharacter(options, additionalWeaponsItems) {
     }
 
     if (options.items) {
-        await addStatingItems(characterActor)
+        await addStartingItems(characterActor)
     }
 
     if (additionalWeaponsItems !== undefined) {
@@ -49,7 +49,7 @@ export async function createCharacter(options, additionalWeaponsItems) {
 
     await characterActor.sheet.render(true)
 
-    const highestAttrValue = getHighestAttrValue(characterStats.data.stats);
+    const highestAttrValue = getHighestAttrValue(characterStats.system.stats);
     if (highestAttrValue <= TAKE_BOTH_ADDITIONAL_ITEMS && options.items && options.background) {
         const additionalItemsBackground = getRandomBackgroundDifferentThan(background);
         getBackgroundItems(additionalItemsBackground)
@@ -91,10 +91,11 @@ async function getBackgroundItems(background) {
 }
 
 async function createStats(background, basicStats, details) {
-    const dexterity = !!basicStats ? attrRoll() : 0;
-    const strength = !!basicStats ? attrRoll() : 0;
-    const will = !!basicStats ? attrRoll() : 0;
+    const dexterity = !!basicStats ? await attrRoll() : 0;
+    const strength = !!basicStats ? await attrRoll() : 0;
+    const will = !!basicStats ? await attrRoll() : 0;
 
+    
     const backgroundName = !!background ? background.name : "";
     const pips = !!background ? background.pips : 0;
     const hp = !!background ? background.hp : 0;
@@ -108,7 +109,7 @@ async function createStats(background, basicStats, details) {
     return {
         name: name,
         type: "character",
-        data: {
+        system: {
             stats: {
                 dexterity: {
                     max: dexterity,
@@ -146,7 +147,7 @@ function getRandomBackground() {
 }
 
 
-async function addStatingItems(instant) {
+async function addStartingItems(instant) {
     await addItem(ITEMS.TORCHES, instant, SLOTS.SLOT_3)
     await addItem(ITEMS.RATIONS, instant, SLOTS.SLOT_6)
 }
