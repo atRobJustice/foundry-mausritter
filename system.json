@@ -144,8 +144,10 @@
       "flags": {}
     }
   ],
-  "gridDistance": 1,
-  "gridUnits": "in",
+  "grid": {
+    "units": "in",
+    "distance": 1
+  },
   "primaryTokenAttribute": "health",
   "url": "https://github.com/Futil/foundry-mausritter",
   "manifest": "https://raw.githubusercontent.com/Futil/foundry-mausritter/v10/system.json",
