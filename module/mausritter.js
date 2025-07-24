@@ -53,27 +53,27 @@ Hooks.once('init', async function () {
   }
   
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
+  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
 
-  Actors.registerSheet("mausritter", MausritterActorSheet, {
+  foundry.documents.collections.Actors.registerSheet("mausritter", MausritterActorSheet, {
     types: ['character'],
     makeDefault: true
   });
-  Actors.registerSheet("mausritter", MausritterHirelingSheet, {
+  foundry.documents.collections.Actors.registerSheet("mausritter", MausritterHirelingSheet, {
     types: ['hireling'],
     makeDefault: false
   });
-  Actors.registerSheet("mausritter", MausritterCreatureSheet, {
+  foundry.documents.collections.Actors.registerSheet("mausritter", MausritterCreatureSheet, {
     types: ['creature'],
     makeDefault: false
   });
-  Actors.registerSheet("mausritter", MausritterStorageSheet, {
+  foundry.documents.collections.Actors.registerSheet("mausritter", MausritterStorageSheet, {
     types: ['storage'],
     makeDefault: false
   });
 
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("mausritter", MausritterItemSheet, { makeDefault: true });
+  foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet("mausritter", MausritterItemSheet, { makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
   Handlebars.registerHelper('concat', function () {
@@ -109,7 +109,7 @@ Hooks.once('init', async function () {
   }
 
   // Set wounds, advantage, and display name visibility
-  mergeObject(createData,
+  foundry.utils.mergeObject(createData,
     {
       "token.bar1": { "attribute": "health" },        // Default Bar 1 to Health 
       "token.bar2": { "stat": "strength" },      // Default Bar 2 to Insanity
@@ -163,7 +163,7 @@ async function createMausritterMacro(dropData, slot) {
     return null;
   }
   
-  mergeObject(macroData, {
+  foundry.utils.mergeObject(macroData, {
     name: itemData.name,
     img: itemData.img,
     command: `game.mausritter.rollItemMacro("${itemData.name}")`,
@@ -208,24 +208,36 @@ function rollItemMacro(itemName) {
  * @return {Promise}
  */
 function rollStatMacro() {
-  var selected = canvas.tokens.controlled;
   const speaker = ChatMessage.getSpeaker();
+  let actor;
 
-  if (selected.length == 0) {
-    selected = game.actors.tokens[speaker.token];
+  // Try to get actor from controlled tokens first
+  const controlledTokens = canvas.tokens.controlled;
+  if (controlledTokens.length > 0) {
+    actor = controlledTokens[0].actor;
+  }
+  
+  // If no controlled tokens, try to get actor from speaker
+  if (!actor && speaker.token) {
+    actor = game.actors.tokens[speaker.token];
+  }
+  
+  // If still no actor, try to get from speaker actor
+  if (!actor && speaker.actor) {
+    actor = game.actors.get(speaker.actor);
   }
 
-  let actor;
-  if (speaker.token) actor = game.actors.tokens[speaker.token];
-  if (!actor) actor = game.actors.get(speaker.actor);
-  const stat = actor ? Object.entries(actor.system.stats) : null;
+  // Check if we have a valid actor with stats
+  if (!actor) {
+    ui.notifications.warn("No actor found to roll stats for");
+    return;
+  }
 
+  if (!actor.system || !actor.system.stats) {
+    ui.notifications.warn("Actor does not have stats to roll");
+    return;
+  }
 
-  // if (stat == null) {
-  //   ui.notifications.info("Stat not found on token");
-  //   return;
-  // }
-
-
-  return actor.rollStatSelect(stat);
+  const statList = Object.entries(actor.system.stats);
+  return actor.rollStatSelect(statList);
 }

@@ -1,5 +1,0 @@
-2024/07/28-12:00:02.719 1102c Log #3: 433 ops saved to Table #4 OK
-2024/07/28-12:00:02.719 1102c Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\tables/000003.log: OK
-2024/07/28-12:00:02.719 1102c Table #4: 433 entries OK
-2024/07/28-12:00:02.722 1102c Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\tables/MANIFEST-000002: OK
-2024/07/28-12:00:02.725 1102c **** Repaired leveldb C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\tables; recovered 1 files; 39496 bytes. Some data may have been lost. ****

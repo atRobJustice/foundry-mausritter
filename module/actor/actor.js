@@ -213,7 +213,7 @@ export class MausritterActor extends Actor {
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
 
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(damageRoll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -309,7 +309,7 @@ export class MausritterActor extends Actor {
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
 
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(damageRoll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -414,7 +414,7 @@ export class MausritterActor extends Actor {
             }
     */
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       if (game.dice3d) {
         game.dice3d.showForRoll(r, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
@@ -444,7 +444,7 @@ export class MausritterActor extends Actor {
       };
 
       for (let i = 0; i < diceRoll.terms.length; i++) {
-        if (diceRoll.terms[i] instanceof Die) {
+        if (diceRoll.terms[i] instanceof foundry.dice.terms.Die) {
           let pool = diceRoll.terms[i].results;
           let faces = diceRoll.terms[i].faces;
 
@@ -549,7 +549,7 @@ export class MausritterActor extends Actor {
             }
     */
     let template = 'systems/mausritter/templates/chat/statroll.html';
-    renderTemplate(template, templateData).then(content => {
+    foundry.applications.handlebars.renderTemplate(template, templateData).then(content => {
       chatData.content = content;
 
       ChatMessage.create(chatData);

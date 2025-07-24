@@ -160,6 +160,7 @@
   "download": "https://github.com/Futil/foundry-mausritter/archive/v10.zip",
   "license": "LICENSE.txt",
   "id": "mausritter",
+  "background": "systems/mausritter/images/Mausritter.jpeg",
   "authors": [
     {
       "name": "Futilrevenge",
@@ -168,6 +169,6 @@
   ],
   "compatibility": {
     "minimum": "10",
-    "verified": "11"
+    "verified": "13"
   }
 }

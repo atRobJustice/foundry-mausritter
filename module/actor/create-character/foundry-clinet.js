@@ -7,7 +7,7 @@ export async function getItemFromFoundry(item_id) {
 
 export async function addItem(itemId, instant, slot) {
     const item = await getItemFromFoundry(itemId);
-    const itemData = duplicate(item);
+    const itemData = foundry.utils.duplicate(item);
     if (slot) {
         itemData.system.sheet = slot
     }
@@ -36,5 +36,5 @@ export async function drawFromTable(tableName) {
 
     const buffer = await table.roll();
 
-    return buffer.results[0].text;
+    return buffer.results[0].name || buffer.results[0].description || '';
 }
