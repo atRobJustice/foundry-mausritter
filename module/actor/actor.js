@@ -43,15 +43,14 @@ export class MausritterActor extends Actor {
 
     let selectList = "";
 
-    statList.forEach(stat => selectList += "<option value='" + stat[0] + "'>" + stat[1].label + "</option>")
+    statList.forEach(stat => selectList += "<option value='" + stat[0] + "'>" + game.i18n.localize('Maus.'+stat[1].label) + "</option>")
 
     let d = new Dialog({
-      title: "Select Roll Type",
-      content: "<h2> Stat </h2> <select style='margin-bottom:10px;'name='stat' id='stat'> " + selectList + "</select> <br/>",
+      title: game.i18n.localize('Maus.RollSelectType'),
+      content: "<h2>" + game.i18n.localize('Maus.RollSelectStat') + "</h2> <select style='margin-bottom:10px;'name='stat' id='stat'> " + selectList + "</select> <br/>",
       buttons: {
         roll: {
           icon: '<i class="fas fa-check"></i>',
-
           label: game.i18n.localize('Maus.Roll'),
           callback: (html) => this.rollStat(this.system.stats[html.find('[id=\"stat\"]')[0].value])
         },
@@ -76,7 +75,7 @@ export class MausritterActor extends Actor {
     //this.rollAttribute(attribute, "none");
 
     let d = new Dialog({
-      title: "Select Roll Type",
+      title: game.i18n.localize('Maus.RollSelectType'),
       content: "<h2> "+game.i18n.localize('Maus.RollAdvantageDisadvantage')+ "</h2> <select style='margin-bottom:10px;'name='advantage' id='advantage'> <option value='none'>"+game.i18n.localize('Maus.RollNone')+"</option> <option value='advantage'>"+game.i18n.localize('Maus.RollAdvantageDisadvantage')+"</option></select> <br/>",
       buttons: {
         roll: {
@@ -155,7 +154,7 @@ export class MausritterActor extends Actor {
     }
   }
 
-  rollWeapon(item = "", state = ""){
+  async rollWeapon(item = "", state = ""){
     let die = (item.system.weapon.selected == 0 ? item.system.weapon.dmg1 : item.system.weapon.dmg2)
     
     if(state == "impaired")
@@ -168,7 +167,7 @@ export class MausritterActor extends Actor {
   // this.rollWeapon(item, item.system.weapon.dmg2);
 
     let damageRoll = new Roll(die);
-    damageRoll.evaluate({async: false});
+    await damageRoll.evaluate();
     //damageRoll.roll();
 
     const diceData = this.formatDice(damageRoll);
@@ -196,7 +195,7 @@ export class MausritterActor extends Actor {
       rollTitle: game.i18n.localize('Maus.RollDamage'), //The title of the roll.
       rollText: damageRoll._total, //What is printed within the roll amount.
       damageDice: die,
-      weaponState: state,
+      weaponState: game.i18n.localize('Maus.Roll' + state.charAt(0).toUpperCase() + state.slice(1)), 
       isWeapon: true,
       diceData
     };
@@ -227,11 +226,11 @@ export class MausritterActor extends Actor {
 
   }
 
-  rollSpell(item = "", power = ""){
+  async rollSpell(item = "", power = ""){
     let die = power+"d6";
 
     let damageRoll = new Roll(die);
-    damageRoll.evaluate({async: false});
+    await damageRoll.evaluate();
 
     const diceData = this.formatDice(damageRoll);
 
@@ -257,9 +256,9 @@ export class MausritterActor extends Actor {
     if(item.system.description == null){
       item.system.description = "";
     }
-
-    item.system.description = item.system.description.split("[DICE]").join("<strong style='text-decoration:underline' class='red'>"+power+"</strong>");
-    item.system.description = item.system.description.split("[SUM]").join("<strong style='text-decoration:underline' class='red'>"+damageRoll._total+"</strong>");
+  
+    item.system.description = item.system.description.split(game.i18n.localize('Maus.RollDiceKeyword')).join("<strong style='text-decoration:underline' class='red'>"+power+"</strong>");
+    item.system.description = item.system.description.split(game.i18n.localize('Maus.RollSumKeyword')).join("<strong style='text-decoration:underline' class='red'>"+damageRoll._total+"</strong>");
     item.system.description += "<h2>"+game.i18n.localize('Maus.RollUsage')+": <strong>"+usage+"</strong></h2>";
     if(miscast){
       let miscastDesc = game.i18n.localize('Maus.RollMiscastDesc');
@@ -323,7 +322,7 @@ export class MausritterActor extends Actor {
 
   }
 
-  rollAttribute(attribute, advantage, item = "", rollOver = false) {
+  async rollAttribute(attribute, advantage, item = "", rollOver = false) {
     let attributeName = attribute.label?.charAt(0).toUpperCase() + attribute.label?.toLowerCase().slice(1);
     if (!attribute.label && isNaN(attributeName))
       attributeName = attribute.charAt(0)?.toUpperCase() + attribute.toLowerCase().slice(1);
@@ -333,18 +332,18 @@ export class MausritterActor extends Actor {
 
 
     let r = new Roll(diceformular, {});
-    r.evaluate({async: false});
+    await r.evaluate();
 
     let rSplit = ("" + r._total).split("");
 
     //Advantage roll
     let a = new Roll(diceformular, {});
-    a.evaluate({async: false});
+    await a.evaluate();
 
     let damageRoll = 0;
     if (item.type == "weapon") {
       damageRoll = new Roll(item.system.damage);
-      damageRoll.evaluate({async: false});
+      await damageRoll.evaluate();
 
     }
 
@@ -363,7 +362,10 @@ export class MausritterActor extends Actor {
         resultText = (r._total >= targetValue ? game.i18n.localize('Maus.RollSuccess') : game.i18n.localize('Maus.RollFailure'));
     } else {
         resultText = (r._total <= targetValue ? game.i18n.localize('Maus.RollSuccess') : game.i18n.localize('Maus.RollFailure'));
-    }
+    } 
+
+    console.log(this);
+    console.log(r._total);
 
     var templateData = {
       actor: this,
@@ -381,7 +383,7 @@ export class MausritterActor extends Actor {
           value: resultText
         },
         isCreature: {
-          value: this.data.type == "hireling" ? true : false
+          value: this.type == "hireling" ? true : false
         }
       },
       target: attribute.value,

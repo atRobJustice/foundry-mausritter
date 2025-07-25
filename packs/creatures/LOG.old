@@ -1,0 +1,5 @@
+2024/07/28-12:00:02.701 8f30 Log #3: 36 ops saved to Table #4 OK
+2024/07/28-12:00:02.701 8f30 Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\creatures/000003.log: OK
+2024/07/28-12:00:02.701 8f30 Table #4: 36 entries OK
+2024/07/28-12:00:02.704 8f30 Archiving C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\creatures/MANIFEST-000002: OK
+2024/07/28-12:00:02.706 8f30 **** Repaired leveldb C:\Users\Futil\AppData\Local\FoundryVTT\Data\systems\mausritter\packs\creatures; recovered 1 files; 12135 bytes. Some data may have been lost. ****
