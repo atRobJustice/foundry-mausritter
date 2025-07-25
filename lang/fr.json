@@ -1,4 +1,20 @@
 {
+        "TYPES": {
+		"Actor": {
+			"character": "Personnage",
+			"hireling": "Suivant",
+			"creature": "Creature",
+			"storage": "Stockage"
+		},
+		"Item": {
+			"item": "Objet",
+			"weapon": "Arme",
+			"armor": "Armure",
+			"storage": "Stockage",
+			"condition": "Condition",
+			"spell": "Sort"
+		}
+	},
     "Maus.ActorName" : "Nom",
     "Maus.ActorBackground" : "Histoire",
     "Maus.ActorWants" : "Désirs",

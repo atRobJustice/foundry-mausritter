@@ -1,19 +1,19 @@
 {
   "Maus.ActorName" : "Nome",
   "Maus.ActorBackground" : "Antecedente",
-  "Maus.ActorWants" : "Deseja",
-  "Maus.ActorDisposition" : "Disposition",
+  "Maus.ActorWants" : "Quer",
+  "Maus.ActorDisposition" : "Disposição",
   "Maus.ActorType" : "Tipo",
-  "Maus.ActorSign" : "Sinal",
+  "Maus.ActorSign" : "Signo",
   "Maus.ActorCoat" : "Pelagem",
   "Maus.ActorLook" : "Visual",
-  "Maus.ActorLvl" : "Lv",
+  "Maus.ActorLvl" : "Nv",
   "Maus.ActorGrit" : "Bravura",
   "Maus.ActorXP" : "EXP",
-  "Maus.ActorStr" : "For",
+  "Maus.ActorStr" : "FOR",
   "Maus.ActorDex" : "DES", 
   "Maus.ActorWil" : "VON",
-  "Maus.ActorHP" : "PV",
+  "Maus.ActorHP" : "PR",
 
   "Maus.Current" : "Atual",
   "Maus.Strength" : "Força",
@@ -21,7 +21,7 @@
 
   "Maus.Will" : "Vontade",
   "Maus.Max" : "Máx",
-  "Maus.Pips" : "Pips",
+  "Maus.Pips" : "Grãos",
   "Maus.Inventory" : "Inventário",
   "Maus.Notes" : "Notas",
   "Maus.Storage" : "Inventário",
@@ -45,7 +45,7 @@
   "Maus.ItemWorth" : "Valor",
   "Maus.ItemCurrentUsage" : "Usados",
   "Maus.ItemMaxUsage" : "Uso Máx",
-  "Maus.ItemTag" : "Tag",
+  "Maus.ItemTag" : "Rótulo",
   "Maus.ItemArmor" : "Armadura",
   "Maus.ItemWidth" : "Largura",
   "Maus.ItemHeight" : "Altura",
@@ -56,9 +56,9 @@
   "Maus.ItemMaxStore" : "Máx",
   "Maus.Item" : "Item",
 
-  "Maus.Cancel" : "Cancel",
+  "Maus.Cancel" : "Cancelar",
 
-  "Maus.Roll" : "Roll",
+  "Maus.Roll" : "Rolar",
   "Maus.RollDescription" : "Descrição",
   "Maus.RollSelectStat" : "Selecione",
   "Maus.RollAdvantageDisadvantage" : "Vantagem/Desvantagem",
@@ -68,7 +68,7 @@
   "Maus.RollSuccess" : "Sucesso",
   "Maus.RollFailure" : "Falha",
   "Maus.RollNormal" : "Normal",
-  "Maus.RollEnhanced" : "Aprimorado",
+  "Maus.RollEnhanced" : "Melhorado",
   "Maus.RollImpaired" : "Prejudicado",
   "Maus.RollPowerDesc" : "Quanto poder?",
   "Maus.RollSum" : "Soma",
@@ -77,6 +77,6 @@
   "Maus.RollDamage" : "Dano",
   "Maus.RollTarget" : "Alvo",
   "Maus.RollAD" : "V/D",
-  "Maus.RollMiscast" : "Miscast",
-  "Maus.RollMiscastDesc" : "Leve [[/r !miscast!d6]] de dano na Vontade<br/> Então, faça uma salvaguarda de Vontade, ficando com a condição <i>insano</i> se for falha."
+  "Maus.RollMiscast" : "Falha Mágica",
+  "Maus.RollMiscastDesc" : "Leve [[/r !miscast!d6]] de dano na Vontade<br/> Então, faça um Teste de Vontade, ficando com a condição <i>Insano</i> se falhar."
 }

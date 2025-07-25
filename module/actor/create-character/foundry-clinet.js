@@ -7,7 +7,7 @@ export async function getItemFromFoundry(item_id) {
 
 export async function addItem(itemId, instant, slot) {
     const item = await getItemFromFoundry(itemId);
-    const itemData = foundry.utils.duplicate(item);
+    const itemData = duplicate(item);
     if (slot) {
         itemData.system.sheet = slot
     }
