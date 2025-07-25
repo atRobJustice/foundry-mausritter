@@ -1,6 +1,6 @@
 export async function showWeaponChoiceDialog(callback) {
     const template = 'systems/mausritter/templates/dialogs/weapon-choice.html';
-    const html = await renderTemplate(template)
+    const html = await foundry.applications.handlebars.renderTemplate(template)
     const d = new Dialog({
         title: "What weapon do you want?",
         content: html,
